@@ -83,6 +83,24 @@ class TC_MyTest2 < Test::Unit::TestCase
     assert_equal(20, @hb.day, "Wrong day.")
   end
 
+  #Test the 30th of a 30-day month
+  def test_h2j_8
+    @hb = Hebruby::HebrewDate.new(Date.new(2009, 4, 24))
+    assert_equal(1, @hb.month, "Wrong month.")
+    assert_equal("Nissan", @hb.month_name, "Wrong month name.")
+    assert_equal(5769, @hb.year, "Wrong year.")
+    assert_equal(30, @hb.day, "Wrong day.")
+  end
+  #
+  #Test the 29th of a 29-day month
+  def test_h2j_9
+    @hb = Hebruby::HebrewDate.new(Date.new(2008, 1, 7))
+    assert_equal(10, @hb.month, "Wrong month.")
+    assert_equal("Tevet", @hb.month_name, "Wrong month name.")
+    assert_equal(5768, @hb.year, "Wrong year.")
+    assert_equal(29, @hb.day, "Wrong day.")
+  end
+
   #
   # julian to hebrew tests
   #
