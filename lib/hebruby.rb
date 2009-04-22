@@ -76,14 +76,14 @@ module Hebruby
       return @jd + 1
     end
     
-   # Provide correct Hebrew transliterated month display name
-   def month_name
-      return month_display_name(@hm)
+    # Provide correct Hebrew transliterated month display name
+    def month_name
+      return MONTH_NAMES[@hm]
     end
 
    # Provide correct Hebrew month display name
     def heb_month_name
-      return heb_month_display_name(@hm)
+      return HEB_MONTH_NAMES[@hm]
     end
 
    # Provide correct Hebrew day display name
@@ -96,7 +96,7 @@ module Hebruby
       year = @hy
       raise RangeError, "only 5700 - 5899 supported" if year < 5700 || year >= 5900
       prefix = year / 100 == 57 ? "התש" : "התת"
-      suffix = heb_number(year % 100)
+      suffix = HebrewDate.heb_number(year % 100)
       full = prefix + suffix
     end
 
@@ -106,7 +106,7 @@ module Hebruby
     end
 
    # Provide correct Hebrew number display
-    def heb_number(num)
+    def self.heb_number(num)
       return 'ט"ו' if num == 15
       return 'ט"ז' if num == 16
       if num < 10
@@ -116,16 +116,6 @@ module Hebruby
       else
         return TENS[ num / 10 ] + '"' + ONES[ num % 10 ]
       end
-    end
-
-    # Provide correct Hebrew transliterated month display name
-    def month_display_name(month)
-      return MONTH_NAMES[month]  
-    end
-    
-   # Provide correct Hebrew month display name
-    def heb_month_display_name(month)
-      return HEB_MONTH_NAMES[month]  
     end
 
     # Is a given Hebrew year a leap year ?
