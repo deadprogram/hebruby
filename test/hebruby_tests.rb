@@ -2,9 +2,8 @@
 # Written by Ron Evans
 # Additional code contributed by Joshua Harvey
 # Based on Javascript code from John Walker (http://www.fourmilab.ch/documents/calendar/)
-require 'rubygems'
 require 'test/unit'
-require 'hebruby'
+require File.dirname(__FILE__)+'/../lib/hebruby'
 require 'date'
 
 class TC_MyTest2 < Test::Unit::TestCase
@@ -44,6 +43,16 @@ class TC_MyTest2 < Test::Unit::TestCase
 
   def test_h2j_4
     @hb = Hebruby::HebrewDate.new(Date.new(1966, 4, 10))
+    assert_equal(1, @hb.month, "Wrong month.")
+    assert_equal("Nissan", @hb.month_name, "Wrong month name.")
+    assert_equal(5726, @hb.year, "Wrong year.")
+    assert_equal(20, @hb.day, "Wrong day.")
+  end
+
+  #using the same date as the previous test, this time we pass
+  #an integer rather than a Date object
+  def test_julianday_integer
+    @hb = Hebruby::HebrewDate.new(Date.new(1966, 4, 10).jd)
     assert_equal(1, @hb.month, "Wrong month.")
     assert_equal("Nissan", @hb.month_name, "Wrong month name.")
     assert_equal(5726, @hb.year, "Wrong year.")

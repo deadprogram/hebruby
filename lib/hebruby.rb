@@ -16,12 +16,11 @@
 
 require 'jcode'
 $KCODE = 'u' # Always use UTF-8 internally!
-require 'date'
 
 module Hebruby
 
   class HebrewDate
-    HEBREW_EPOCH = 347995.5
+    HEBREW_EPOCH = 347995
     MONTH_NAMES = %w{none Nissan Iyar Sivan Tamuz Av Elul Tishrei Chesvan Kislev Tevet Shvat Adar Veadar}
     HEB_MONTH_NAMES = [ nil, 'ניסן', 'אייר', 'סיון', 'תמוז', 'אב', 'אלול', 'תשרי', 
       'חשון', 'כסלו', 'טבת', 'שבט', 'אדר', 'אדר א\'', 'אדר ב\'']
@@ -35,10 +34,15 @@ module Hebruby
     # Accessors for base Hebrew day, month, and year
    attr_accessor :hd, :hm, :hy
     
-    # standard constructor from julian to hebrew date
+    # Constructor from another date object (which must respond to +#jd+), or
+   # from a Julian day number. 
     def initialize(jd=nil)
       if jd
-        @jd = jd
+        if jd.is_a? Integer
+          @jd = jd
+        elsif jd.respond_to? :jd
+          @jd = jd.jd
+        end
         convert_from_julian
       end
     end
@@ -132,7 +136,7 @@ module Hebruby
     end
     
     def convert_from_hebrew
-      @jd = to_jd(@hy, @hm, @hd).jd
+      @jd = to_jd(@hy, @hm, @hd)
     end
     
     # Is a given Hebrew year a leap year ?
@@ -203,6 +207,7 @@ private
       months = year_months(year)
       jd = HEBREW_EPOCH + delay_1(year) + delay_2(year) + day + 1
 
+      
       if (month < 7) then
         for mon in 7..months
           jd += month_days(year, mon)
@@ -217,32 +222,32 @@ private
         end
       end
 
-      return Object::Date.new1(jd)
+      return jd
     end
 
     # Convert Julian date to Hebrew date
     # This works by making multiple calls to
     # to_jd, and is this very slow
     def jd_to_hebrew(jd)
-      myjd = jd.jd
+      myjd = jd
       count = (((myjd - HEBREW_EPOCH) * 98496.0) / 35975351.0).floor
       year = count - 1
         
       i = count
-      while myjd >= to_jd(i, 7, 1).jd
+      while myjd >= to_jd(i, 7, 1)
         year += 1
         i += 1
       end
 
-      first = (myjd < to_jd(year, 1, 1).jd) ? 7 : 1
+      first = (myjd < to_jd(year, 1, 1)) ? 7 : 1
       i = month = first
         
-      while myjd > to_jd(year, i, month_days(year, i)).jd
+      while myjd > to_jd(year, i, month_days(year, i))
         month += 1
         i += 1
       end
         
-      day = (myjd - to_jd(year, month, 1).jd) # + 1
+      day = (myjd - to_jd(year, month, 1)) # + 1
       return [year, month, day]
     end
 
