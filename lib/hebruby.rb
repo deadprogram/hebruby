@@ -196,21 +196,21 @@ module Hebruby
 
     # Convert hebrew date to julian date
     def self.to_jd(year, month, day)
-      months = HebrewDate.year_months(year)
+      months = year_months(year)
       jd = HEBREW_EPOCH + delay_1(year) + delay_2(year) + day + 1
 
       
       if (month < 7) then
         for mon in 7..months
-          jd += HebrewDate.month_days(year, mon)
+          jd += month_days(year, mon)
         end
 
-        for mon in 1..(month - 1)
-          jd += HebrewDate.month_days(year, mon)
+        for mon in 1...month
+          jd += month_days(year, mon)
         end
       else
-        for mon in 7..(month - 1)
-          jd += HebrewDate.month_days(year, mon)
+        for mon in 7...month
+          jd += month_days(year, mon)
         end
       end
 
@@ -232,11 +232,10 @@ module Hebruby
       end
 
       first = (myjd < to_jd(year, 1, 1)) ? 7 : 1
-      i = month = first
+      month = first
         
-      while myjd > to_jd(year, i, HebrewDate.month_days(year, i))
+      while myjd > to_jd(year, month, HebrewDate.month_days(year, month))
         month += 1
-        i += 1
       end
         
       day = (myjd - to_jd(year, month, 1)) # + 1
