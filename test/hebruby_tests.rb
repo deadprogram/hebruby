@@ -101,6 +101,20 @@ class TC_MyTest2 < Test::Unit::TestCase
     assert_equal(29, @hb.day, "Wrong day.")
   end
 
+  def test_jd
+    orig=2454946
+    hb=Hebruby::HebrewDate.new(orig)
+    hb.convert_from_julian
+    hb.convert_from_hebrew
+    assert_equal(orig,hb.jd,"Julian day number #{orig} didn't make a round trip")
+  end 
+
+  def test_to_jd
+    assert_equal(2454944,Hebruby::HebrewDate.to_jd(5769,1,28))
+    assert_equal(2454945,Hebruby::HebrewDate.to_jd(5769,1,29))
+    assert_equal(2454946,Hebruby::HebrewDate.to_jd(5769,1,30))
+  end
+
   #
   # julian to hebrew tests
   #
