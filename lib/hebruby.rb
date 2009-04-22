@@ -128,34 +128,24 @@ module Hebruby
       return HEB_MONTH_NAMES[month]  
     end
 
-    def convert_from_julian
-      dateArray = jd_to_hebrew(@jd)
-      @hy = dateArray[0]		
-      @hm = dateArray[1]		
-      @hd = dateArray[2]		
-    end
-    
-    def convert_from_hebrew
-      @jd = to_jd(@hy, @hm, @hd)
-    end
-    
     # Is a given Hebrew year a leap year ?
-    def leap?(year)
+    def self.leap?(year)
       return ((year * 7) + 1).modulo(19) < 7
     end
 
+
     # How many months are there in a Hebrew year (12 = normal, 13 = leap)
-    def year_months(year)
+    def self.year_months(year)
       return leap?(year) ? 13 : 12
     end
 
     # How many days are in a Hebrew year ?
-    def year_days(year)
+    def self.year_days(year)
       return to_jd(year + 1, 7, 1) - to_jd(year, 7, 1)
     end
 
     # How many days are in a given month of a given year
-    def month_days(year, month)
+    def self.month_days(year, month)
       # First of all, dispose of fixed-length 29 day months
       case
         when (month == 2 || month == 4 || month == 6 || month == 10 || month == 13)
@@ -179,10 +169,22 @@ module Hebruby
       end
     end
 
-private
+    # internal conversion method to keep fields syncronized with julian date
+    def convert_from_julian
+      dateArray = HebrewDate.jd_to_hebrew(@jd)
+      @hy = dateArray[0]		
+      @hm = dateArray[1]		
+      @hd = dateArray[2]		
+    end
+    
+    # internal conversion method to keep fields syncronized with julian date
+    def convert_from_hebrew
+      @jd = HebrewDate.to_jd(@hy, @hm, @hd)
+    end
+
     # Test for delay of start of new year and to avoid
     # Sunday, Wednesday, and Friday as start of the new year.
-    def delay_1(year)
+    def self.delay_1(year)
       months = (((235 * year) - 234) / 19).floor
       parts = 12084 + (13753 * months)
       day = (months * 29) + (parts / 25920).floor
@@ -194,7 +196,7 @@ private
     end
 
     # Check for delay in start of new year due to length of adjacent years
-    def delay_2(year)
+    def self.delay_2(year)
       last = delay_1(year - 1)
       present = delay_1(year)
       nextone = delay_1(year + 1)
@@ -203,22 +205,22 @@ private
     end
 
     # Convert hebrew date to julian date
-    def to_jd(year, month, day)
-      months = year_months(year)
+    def self.to_jd(year, month, day)
+      months = HebrewDate.year_months(year)
       jd = HEBREW_EPOCH + delay_1(year) + delay_2(year) + day + 1
 
       
       if (month < 7) then
         for mon in 7..months
-          jd += month_days(year, mon)
+          jd += HebrewDate.month_days(year, mon)
         end
 
         for mon in 1..(month - 1)
-          jd += month_days(year, mon)
+          jd += HebrewDate.month_days(year, mon)
         end
       else
         for mon in 7..(month - 1)
-          jd += month_days(year, mon)
+          jd += HebrewDate.month_days(year, mon)
         end
       end
 
@@ -228,7 +230,7 @@ private
     # Convert Julian date to Hebrew date
     # This works by making multiple calls to
     # to_jd, and is this very slow
-    def jd_to_hebrew(jd)
+    def self.jd_to_hebrew(jd)
       myjd = jd
       count = (((myjd - HEBREW_EPOCH) * 98496.0) / 35975351.0).floor
       year = count - 1
@@ -242,7 +244,7 @@ private
       first = (myjd < to_jd(year, 1, 1)) ? 7 : 1
       i = month = first
         
-      while myjd > to_jd(year, i, month_days(year, i))
+      while myjd > to_jd(year, i, HebrewDate.month_days(year, i))
         month += 1
         i += 1
       end
