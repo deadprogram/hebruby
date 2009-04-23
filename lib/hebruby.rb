@@ -34,64 +34,69 @@ module Hebruby
     # Accessors for base Hebrew day, month, and year
    attr_accessor :hd, :hm, :hy
     
-    # Constructor from another date object (which must respond to +#jd+), or
-   # from a Julian day number. 
-    def initialize(jd=nil)
-      if jd
-        if jd.is_a? Integer
-          @jd = jd
-        elsif jd.respond_to? :jd
-          @jd = jd.jd
-        end
-        convert_from_julian
-      end
-    end
-    
-    # additional constructor from hebrew date to julian
-    def self.new1(hd, hm, hy)
-      me = new
-      me.hd = hd
-      me.hm = hm
-      me.hy = hy
-      me.convert_from_hebrew
-      return me
-    end
+   # Constructor.
+   # When passed 1 parameter, the one parameter must either be an integer
+   # representing a Julian day number, or some kind of date object (e.g. Ruby's
+   # Date class) that responds to the +jd+ method to expose a Julian day
+   # number.
+   # When passed 3 parameters, they are +day+,+month+,+year+ of the
+   # Hebrew date, as integers.
+   def initialize(*params)
+     if params.size == 3
+       @hd = params[0]
+       @hm = params[1]
+       @hy = params[2]
+       convert_from_hebrew
+     elsif params.size == 1
+       jd=params[0]
+       if jd
+         if jd.is_a? Integer
+           @jd = jd
+         elsif jd.respond_to? :jd
+           @jd = jd.jd
+         end
+         convert_from_julian
+       end
+     else
+       raise ArgumentError
+     end
+   end
     
     def day
       return @hd
     end
 
-  # Provide correct Hebrew transliterated month display name
+  # Provide Hebrew transliterated month display name
     def month
       return @hm
     end
 
-    # return Hebrew year converted from julian date
+    # return Hebrew year
     def year
       return @hy
     end
 
-    # return julian date converted from hebrew date
+    # return julian day number
     def jd
       return @jd
     end
     
-    # Provide correct Hebrew transliterated month display name
+    # Provide Hebrew month name transiterated into Englsih
     def month_name
       return MONTH_NAMES[@hm]
     end
 
-   # Provide correct Hebrew month display name
+    # Provide Hebrew month name in Hebrew letters
     def heb_month_name
       return HEB_MONTH_NAMES[@hm]
     end
 
-   # Provide correct Hebrew day display name
+   # Provide Hebrew day of the month, in hebrew letters.
     def heb_day_name
       return HEB_DAYS[@hd]
     end
 
-   # Provide correct Hebrew year display name
+   # Provide Hebrew year number in hebrew letters
     def heb_year_name
       year = @hy
       raise RangeError, "only 5700 - 5899 supported" if year < 5700 || year >= 5900
@@ -100,13 +105,14 @@ module Hebruby
       full = prefix + suffix
     end
 
-   # Provide correct complete Hebrew display date
+   # Provide Hebrew display date
     def heb_date
       return heb_day_name + " ב" + heb_month_name + " " + heb_year_name
     end
 
-   # Provide correct Hebrew number display
+   # Return the representation in hebrew letters for a number less than 100
     def self.heb_number(num)
+      raise ArgumentError if num>100 or num < 0
       return 'ט"ו' if num == 15
       return 'ט"ז' if num == 16
       if num < 10
@@ -159,7 +165,7 @@ module Hebruby
       end
     end
 
-    # internal conversion method to keep fields syncronized with julian date
+    # internal conversion method to keep fields syncronized with julian day number
     def convert_from_julian
       dateArray = HebrewDate.jd_to_hebrew(@jd)
       @hy = dateArray[0]		
@@ -167,7 +173,7 @@ module Hebruby
       @hd = dateArray[2]		
     end
     
-    # internal conversion method to keep fields syncronized with julian date
+    # internal conversion method to keep fields syncronized with julian day number
     def convert_from_hebrew
       @jd = HebrewDate.to_jd(@hy, @hm, @hd)
     end
@@ -204,7 +210,7 @@ module Hebruby
       return day + HEBREW_EPOCH + 1
     end
 
-    # Convert hebrew date to julian date
+    # Convert hebrew date to julian day number
     def self.to_jd(year, month, day)
       months = year_months(year)
 
@@ -229,7 +235,7 @@ module Hebruby
       return jd
     end
 
-    # Convert Julian date to Hebrew date
+    # Convert Julian day number to Hebrew date
     # This works by making multiple calls to
     # to_jd, and is this very slow
     def self.jd_to_hebrew(jd)
