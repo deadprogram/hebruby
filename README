@@ -1,15 +1,6 @@
 # Hebruby is a Ruby library to convert julian dates to hebrew dates, and vice-versa.
 # Written by Ron Evans (ron dot evans at gmail dot com or http://www.deadprogrammersociety.com).
 # Additional code contributed by Joshua Harvey.
-# Based on Javascript code from John Walker (http://www.fourmilab.ch/documents/calendar/).
-# Usage:      
-#       For julian to hebrew:
-#             @hb = Hebruby::HebrewDate.new(Date.new(2010, 1, 1))
-#             assert_equal(10, @hb.month, "Wrong month.")
-#             assert_equal("Tevet", @hb.month_name, "Wrong month name.")
-#             assert_equal(5770, @hb.year, "Wrong year.")
-#             assert_equal(15, @hb.day, "Wrong day.")
-#
-#       For hebrew to julian:
-#             @hb = Hebruby::HebrewDate.new1(15,10,5770)
-#             assert_equal(Date.new(2010, 1, 1).jd, @hb.jd, "Wrong Julian date.")
+# Algorithm rewritten by Ken Bloom (kbloom@gmail.com) # based on ``Calendrical
+# Calculations'' by Nachum Dershowitz and Edward M.  Reingold, Cambridge
+# University Press (1997), as implemented in emacs' lisp/calendar/cal-hebrew.el
