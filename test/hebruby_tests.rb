@@ -35,10 +35,10 @@ class TC_MyTest2 < Test::Unit::TestCase
 
   def test_h2j_3
     @hb = Hebruby::HebrewDate.new(Date.new(2005, 4, 10))
+    assert_equal(1, @hb.day, "Wrong day.")
     assert_equal(1, @hb.month, "Wrong month.")
     assert_equal("Nissan", @hb.month_name, "Wrong month name.")
     assert_equal(5765, @hb.year, "Wrong year.")
-    assert_equal(1, @hb.day, "Wrong day.")
   end
 
   def test_h2j_4
@@ -103,10 +103,16 @@ class TC_MyTest2 < Test::Unit::TestCase
 
   def test_jd
     orig=2454946
+
+    assert_equal(orig,Hebruby::HebrewDate.to_jd(*
+      Hebruby::HebrewDate.jd_to_hebrew(orig)),
+      "Julian day number #{orig} didn't make a round trip using class methods")
+
     hb=Hebruby::HebrewDate.new(orig)
     hb.convert_from_julian
     hb.convert_from_hebrew
-    assert_equal(orig,hb.jd,"Julian day number #{orig} didn't make a round trip")
+    assert_equal(orig,hb.jd,
+      "Julian day number #{orig} didn't make a round trip using instance methods")
   end 
 
   def test_to_jd
