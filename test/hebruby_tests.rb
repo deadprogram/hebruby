@@ -126,7 +126,7 @@ class TC_MyTest2 < Test::Unit::TestCase
   #
   
   def test_j2h_1
-    @hb = Hebruby::HebrewDate.new1(15,10,5770)
+    @hb = Hebruby::HebrewDate.new(15,10,5770)
     assert_equal(15, @hb.day, "Wrong day.")
     assert_equal(10, @hb.month, "Wrong month.")
     assert_equal("Tevet", @hb.month_name, "Wrong month name.")
@@ -136,7 +136,7 @@ class TC_MyTest2 < Test::Unit::TestCase
   end
 
   def test_j2h_2
-    @hb = Hebruby::HebrewDate.new1(5,11,5765)
+    @hb = Hebruby::HebrewDate.new(5,11,5765)
     assert_equal(5, @hb.day, "Wrong day.")
     assert_equal(11, @hb.month, "Wrong month.")
     assert_equal("Shvat", @hb.month_name, "Wrong month name.")
@@ -145,7 +145,7 @@ class TC_MyTest2 < Test::Unit::TestCase
   end
 
   def test_j2h_3
-    @hb = Hebruby::HebrewDate.new1(1,1,5765)
+    @hb = Hebruby::HebrewDate.new(1,1,5765)
     assert_equal(1, @hb.day, "Wrong day.")
     assert_equal(1, @hb.month, "Wrong month.")
     assert_equal("Nissan", @hb.month_name, "Wrong month name.")
@@ -154,7 +154,7 @@ class TC_MyTest2 < Test::Unit::TestCase
   end
 
   def test_j2h_4
-    @hb = Hebruby::HebrewDate.new1(20,1,5726)
+    @hb = Hebruby::HebrewDate.new(20,1,5726)
     assert_equal(20, @hb.day, "Wrong day.")
     assert_equal(1, @hb.month, "Wrong month.")
     assert_equal(5726, @hb.year, "Wrong year.")
@@ -163,7 +163,7 @@ class TC_MyTest2 < Test::Unit::TestCase
   end
 
   def test_j2h_5
-    @hb = Hebruby::HebrewDate.new1(3,10,5759)
+    @hb = Hebruby::HebrewDate.new(3,10,5759)
     assert_equal(3, @hb.day, "Wrong day.")
     assert_equal(10, @hb.month, "Wrong month.")
     assert_equal("Tevet", @hb.month_name, "Wrong month name.")
@@ -173,7 +173,7 @@ class TC_MyTest2 < Test::Unit::TestCase
   end
 
   def test_j2h_6
-    @hb = Hebruby::HebrewDate.new1(2,4,5728)
+    @hb = Hebruby::HebrewDate.new(2,4,5728)
     assert_equal(2, @hb.day, "Wrong day.")
     assert_equal(4, @hb.month, "Wrong month.")
     assert_equal("Tamuz", @hb.month_name, "Wrong month name.")
@@ -184,7 +184,7 @@ class TC_MyTest2 < Test::Unit::TestCase
   end
   
   def test_j2h_7
-    @hb = Hebruby::HebrewDate.new1(20,9,5702)
+    @hb = Hebruby::HebrewDate.new(20,9,5702)
     assert_equal(20, @hb.day, "Wrong day.")
     assert_equal(9, @hb.month, "Wrong month.")
     assert_equal("Kislev", @hb.month_name, "Wrong month name.")
