@@ -1,0 +1,26 @@
+= Hebruby
+
+Hebruby is a Ruby library to convert julian dates to hebrew dates, and vice-versa.
+Written by Ron Evans (ron dot evans at gmail dot com or http://www.deadprogrammersociety.com).
+Additional code contributed by Joshua Harvey.
+Algorithm rewritten by Ken Bloom (kbloom@gmail.com) # based on 'Calendrical Calculations' by Nachum Dershowitz and Edward M. Reingold, Cambridge University Press (1997), as implemented in emacs' lisp/calendar/cal-hebrew.el
+
+= How to install
+
+  sudo gem install hebruby
+
+= How to use:
+
+  require 'rubygems'
+  require 'hebruby'
+
+  @hb = Hebruby::HebrewDate.new(2,4,5728)
+  puts @hb.day # => 2
+  puts @hb.month # => 4
+  puts @hb.month_name # => Tamuz
+  puts @hb.heb_month_name # => תמוז
+  puts @hb.year # => 5728
+  puts @hb.heb_year_name # => התשכ"ח
+  puts @hb.jd # => 6/28/1968
+  
+  
