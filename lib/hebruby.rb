@@ -54,6 +54,8 @@ module Hebruby
            @jd = jd
          elsif jd.respond_to? :jd
            @jd = jd.jd
+         else
+           raise ArgumentError
          end
          convert_from_julian
        end
