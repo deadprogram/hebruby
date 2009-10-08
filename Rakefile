@@ -20,7 +20,6 @@ Echoe.new("hebruby") do |p|
   p.author = "Ron Evans"
   p.summary = "Hebruby is a Ruby library to convert julian dates to hebrew dates, and vice-versa."
   p.url = "http://deadprogrammersociety.com/"
-#  p.dependencies = ["sinatra >=0.2.2", "facebooker >=0.9.5"]
   p.install_message = "*** Hebruby was installed ***"
   p.include_rakefile = true
 end
