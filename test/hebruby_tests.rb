@@ -1,3 +1,5 @@
+# coding:utf-8
+
 # Unit tests for Hebruby module to convert julian dates to hebrew dates, and vice-versa
 # Written by Ron Evans
 # Additional code contributed by Joshua Harvey

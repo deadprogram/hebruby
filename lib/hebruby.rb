@@ -1,3 +1,5 @@
+# coding:utf-8
+
 # Hebruby is a Ruby library to convert julian dates to hebrew dates, and vice-versa.
 # Written by Ron Evans (ron dot evans at gmail dot com or http://www.deadprogrammersociety.com).
 # Additional code contributed by Joshua Harvey.
@@ -14,8 +16,11 @@
 #             @hb = Hebruby::HebrewDate.new1(15,10,5770)
 #             assert_equal(Date.new(2010, 1, 1).jd, @hb.jd, "Wrong Julian date.")
 
-require 'jcode'
-$KCODE = 'u' # Always use UTF-8 internally!
+# here for Ruby 1.9
+if not "".respond_to?(:each_char)
+  require 'jcode'
+  $KCODE = 'u' # Always use UTF-8 internally!
+end
 
 module Hebruby
 
