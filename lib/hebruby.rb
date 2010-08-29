@@ -21,7 +21,7 @@ module Hebruby
 
   class HebrewDate
     HEBREW_EPOCH = 347995
-    MONTH_NAMES = %w{none Nissan Iyar Sivan Tamuz Av Elul Tishrei Chesvan Kislev Tevet Shvat Adar Veadar}
+    MONTH_NAMES = %w{none Nissan Iyar Sivan Tamuz Av Elul Tishrei Chesvan Kislev Tevet Shvat Adar} + ["Adar Sheni"]
     HEB_MONTH_NAMES = [ nil, 'ניסן', 'אייר', 'סיון', 'תמוז', 'אב', 'אלול', 'תשרי', 
       'חשון', 'כסלו', 'טבת', 'שבט', 'אדר', 'אדר א\'', 'אדר ב\'']
     HEB_DAYS = [ nil, 'א\'', 'ב\'', 'ג\'', 'ד\'', 'ה\'', 'ו\'', 'ז\'', 'ח\'', 'ט\'', 
