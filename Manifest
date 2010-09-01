@@ -1,8 +1,8 @@
 CHANGELOG
-lib/hebruby.rb
 LICENSE
-Rakefile
+Manifest
 README
 README.rdoc
+Rakefile
+lib/hebruby.rb
 test/hebruby_tests.rb
-Manifest

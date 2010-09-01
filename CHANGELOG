@@ -1,3 +1,5 @@
+v2.0.3  Change to transliterated month name to Adar Sheni
+
 v2.0.2  Minor tweaks for Ruby 1.9 compatibility
 
 v2.0.1  Add Echoe to make publishing gem to RubyForge easier
