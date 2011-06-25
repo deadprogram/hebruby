@@ -103,6 +103,14 @@ class TC_MyTest2 < Test::Unit::TestCase
     assert_equal(29, @hb.day, "Wrong day.")
   end
 
+  def test_h2j_10
+    @hb = Hebruby::HebrewDate.new(Date.new(2005, 3, 18))
+    assert_equal(13, @hb.month, "Wrong month.")
+    assert_equal("Adar Sheni", @hb.month_name, "Wrong month name.")
+    assert_equal(5765, @hb.year, "Wrong year.")
+    assert_equal(7, @hb.day, "Wrong day.")
+  end
+
   def test_jd
     orig=2454946
 
@@ -195,8 +203,6 @@ class TC_MyTest2 < Test::Unit::TestCase
     assert_equal('התש"ב', @hb.heb_year_name, "Wrong year.")
     assert_equal(Date.new(1941, 12, 10).jd, @hb.jd, "Wrong Julian date.")
   end
-
-
 
 end
 

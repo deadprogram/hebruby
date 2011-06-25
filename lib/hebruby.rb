@@ -95,7 +95,11 @@ module Hebruby
 
     # Provide Hebrew month name in Hebrew letters
     def heb_month_name
-      return HEB_MONTH_NAMES[@hm]
+      if HebrewDate.leap?(@hy) and @hm >= 12 # leap year and from adar
+       return HEB_MONTH_NAMES[@hm + 1]
+      else
+       return HEB_MONTH_NAMES[@hm]
+      end
     end
 
    # Provide Hebrew day of the month, in hebrew letters.
