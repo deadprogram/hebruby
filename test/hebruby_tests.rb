@@ -18,7 +18,7 @@ class TC_MyTest2 < Test::Unit::TestCase
   #
   # hebrew to julian tests
   #
-  
+
   def test_h2j_1
     @hb = Hebruby::HebrewDate.new(Date.new(2010, 1, 1))
     assert_equal(10, @hb.month, "Wrong month.")
@@ -76,7 +76,7 @@ class TC_MyTest2 < Test::Unit::TestCase
     assert_equal(5728, @hb.year, "Wrong year.")
     assert_equal(2, @hb.day, "Wrong day.")
   end
-  
+
   def test_h2j_7
     @hb = Hebruby::HebrewDate.new(Date.new(1941, 12, 10))
     assert_equal(9, @hb.month, "Wrong month.")
@@ -123,7 +123,7 @@ class TC_MyTest2 < Test::Unit::TestCase
     hb.convert_from_hebrew
     assert_equal(orig,hb.jd,
       "Julian day number #{orig} didn't make a round trip using instance methods")
-  end 
+  end
 
   def test_to_jd
     assert_equal(2454944,Hebruby::HebrewDate.to_jd(5769,1,28))
@@ -134,7 +134,7 @@ class TC_MyTest2 < Test::Unit::TestCase
   #
   # julian to hebrew tests
   #
-  
+
   def test_j2h_1
     @hb = Hebruby::HebrewDate.new(15,10,5770)
     assert_equal(15, @hb.day, "Wrong day.")
@@ -187,22 +187,21 @@ class TC_MyTest2 < Test::Unit::TestCase
     assert_equal(2, @hb.day, "Wrong day.")
     assert_equal(4, @hb.month, "Wrong month.")
     assert_equal("Tamuz", @hb.month_name, "Wrong month name.")
-    assert_equal("תמוז", @hb.heb_month_name, "Wrong month name.")    
+    assert_equal("תמוז", @hb.heb_month_name, "Wrong month name.")
     assert_equal(5728, @hb.year, "Wrong year.")
     assert_equal('התשכ"ח', @hb.heb_year_name, "Wrong year.")
     assert_equal(Date.new(1968, 6, 28).jd, @hb.jd, "Wrong Julian date.")
   end
-  
+
   def test_j2h_7
     @hb = Hebruby::HebrewDate.new(20,9,5702)
     assert_equal(20, @hb.day, "Wrong day.")
     assert_equal(9, @hb.month, "Wrong month.")
     assert_equal("Kislev", @hb.month_name, "Wrong month name.")
-    assert_equal("כסלו", @hb.heb_month_name, "Wrong month name.")    
+    assert_equal("כסלו", @hb.heb_month_name, "Wrong month name.")
     assert_equal(5702, @hb.year, "Wrong year.")
     assert_equal('התש"ב', @hb.heb_year_name, "Wrong year.")
     assert_equal(Date.new(1941, 12, 10).jd, @hb.jd, "Wrong Julian date.")
   end
 
 end
-
